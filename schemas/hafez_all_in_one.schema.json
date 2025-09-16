@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HAFEZ All-in-one Week Package",
+  "type": "object",
+  "required": [
+    "version",
+    "league",
+    "week",
+    "goals",
+    "corners"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "league": {
+      "type": "string"
+    },
+    "week": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "goals": {
+      "type": "object",
+      "required": [
+        "Conservative",
+        "Balanced",
+        "Risky"
+      ],
+      "properties": {
+        "Conservative": {
+          "$ref": "#/$defs/matches"
+        },
+        "Balanced": {
+          "$ref": "#/$defs/matches"
+        },
+        "Risky": {
+          "$ref": "#/$defs/matches"
+        }
+      }
+    },
+    "corners": {
+      "type": "object",
+      "required": [
+        "matches"
+      ],
+      "properties": {
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "home_team",
+              "away_team",
+              "corners"
+            ],
+            "properties": {
+              "home_team": {
+                "type": "string"
+              },
+              "away_team": {
+                "type": "string"
+              },
+              "corners": {
+                "type": "object",
+                "required": [
+                  "total_expected"
+                ],
+                "properties": {
+                  "total_expected": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "shortlist": {
+      "type": "object"
+    },
+    "upset_candidates": {
+      "type": "array"
+    }
+  },
+  "$defs": {
+    "match": {
+      "type": "object",
+      "required": [
+        "home_team",
+        "away_team",
+        "predictions"
+      ],
+      "properties": {
+        "home_team": {
+          "type": "string"
+        },
+        "away_team": {
+          "type": "string"
+        },
+        "predictions": {
+          "type": "object",
+          "required": [
+            "main"
+          ],
+          "properties": {
+            "main": {
+              "type": "object",
+              "required": [
+                "home_win",
+                "draw",
+                "away_win",
+                "top_pick",
+                "confidence"
+              ],
+              "properties": {
+                "home_win": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "draw": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "away_win": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "top_pick": {
+                  "type": "string",
+                  "enum": [
+                    "Home Win",
+                    "Draw",
+                    "Away Win"
+                  ]
+                },
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "risk_score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "matches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/match"
+      }
+    }
+  },
+  "additionalProperties": true
+}

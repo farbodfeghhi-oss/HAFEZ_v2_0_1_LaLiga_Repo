@@ -1,0 +1,36 @@
+name: JSON Validation
+on:
+  pull_request:
+    paths: [ 'public/data/**/*.json', 'schemas/**/*.json' ]
+  push:
+    branches: [ main ]
+    paths: [ 'public/data/**/*.json', 'schemas/**/*.json' ]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm i -g ajv-cli@5
+      - name: Validate All-in-one (if present)
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(public/data/HAFEZ_LaLiga_Week*_ALL_v2_0_1.json)
+          if [ ${#files[@]} -gt 0 ]; then
+            ajv validate -s schemas/hafez_all_in_one.schema.json -d "public/data/HAFEZ_LaLiga_Week*_ALL_v2_0_1.json" --spec=draft2020 --errors=line
+          else
+            echo "No ALL files"
+          fi
+      - name: Validate Shortlist (if present)
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(public/data/HAFEZ_LaLiga_Week*_Shortlist.json)
+          if [ ${#files[@]} -gt 0 ]; then
+            ajv validate -s schemas/hafez_shortlist.schema.json -d "public/data/HAFEZ_LaLiga_Week*_Shortlist.json" --spec=draft2020 --errors=line
+          else
+            echo "No Shortlist files"
+          fi

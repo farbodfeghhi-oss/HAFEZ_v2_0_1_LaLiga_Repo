@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HAFEZ Weekly Shortlist",
+  "type": "object",
+  "required": [
+    "version",
+    "league",
+    "week",
+    "shortlist"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "league": {
+      "type": "string"
+    },
+    "week": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "shortlist": {
+      "type": "object",
+      "required": [
+        "high_confidence",
+        "medium_confidence",
+        "low_confidence"
+      ],
+      "properties": {
+        "high_confidence": {
+          "$ref": "#/$defs/entries"
+        },
+        "medium_confidence": {
+          "$ref": "#/$defs/entries"
+        },
+        "low_confidence": {
+          "$ref": "#/$defs/entries"
+        }
+      }
+    },
+    "upset_candidates": {
+      "$ref": "#/$defs/entries"
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "Match",
+        "TopPick",
+        "Confidence"
+      ],
+      "properties": {
+        "Match": {
+          "type": "string"
+        },
+        "TopPick": {
+          "type": "string",
+          "enum": [
+            "Home Win",
+            "Draw",
+            "Away Win"
+          ]
+        },
+        "Confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "Risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HAFEZ v2.0.1 — La Liga Dashboard</title>
+  <style>
+    body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#f7f7fb;color:#111;margin:0}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{padding:8px 12px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer}
+    .btn:hover{background:#f3f4f6}
+    .tabs button{margin:0 6px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #eee;text-align:center}
+    .pill{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #ddd}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>HAFEZ v2.0.1 — La Liga Dashboard (Starter)</h1>
+    <div class="card row">
+      <div>
+        هفته:
+        <input id="week" type="number" value="5" style="width:70px" />
+      </div>
+      <div class="tabs">
+        <button class="btn" onclick="setTab('Shortlist')">Shortlist</button>
+        <button class="btn" onclick="setTab('Heatmap')">Heatmap</button>
+        <button class="btn" onclick="setTab('Compare')">Compare C/B/R</button>
+      </div>
+      <div style="margin-inline-start:auto">
+        <button class="btn" onclick="exportCsv()">Export CSV</button>
+      </div>
+    </div>
+
+    <div id="content"></div>
+
+    <div class="card">
+      <small>فایل‌های داده باید در پوشه <code>public/data</code> قرار بگیرند. نام‌ها:
+        <code>HAFEZ_LaLiga_WeekN_ALL_v2_0_1.json</code>،
+        <code>HAFEZ_LaLiga_WeekN_Conservative.json</code>،
+        <code>HAFEZ_LaLiga_WeekN_Balanced.json</code>،
+        <code>HAFEZ_LaLiga_WeekN_Risky.json</code>،
+        <code>HAFEZ_LaLiga_WeekN_Shortlist.json</code>.
+      </small>
+    </div>
+  </div>
+  <script src="../../app.js"></script>
+  <script>
+    function setTab(t){ window.currentTab=t; render(); }
+    function exportCsv(){
+      if (!window.currentData) return alert('داده‌ای بارگذاری نشده');
+      const rows = [];
+      if (window.currentTab==='Shortlist'){
+        const sl = window.currentData;
+        const add = (bucket, arr)=> arr.forEach(r=> rows.push({Bucket:bucket, Match:r.Match, TopPick:r.TopPick, Confidence:r.Confidence}));
+        add('High', sl.shortlist.high_confidence);
+        add('Medium', sl.shortlist.medium_confidence);
+        add('Low', sl.shortlist.low_confidence);
+      }else if(window.currentTab==='Heatmap'){
+        const arr = window.currentData.goals.Balanced;
+        arr.forEach(m=> rows.push({Match:`${m.home_team} vs ${m.away_team}`, H:m.predictions.main.home_win, D:m.predictions.main.draw, A:m.predictions.main.away_win, Confidence:m.predictions.main.confidence}));
+      }else{
+        const C=window.currentDataC.matches, B=window.currentDataB.matches, R=window.currentDataR.matches;
+        B.forEach((m,i)=>{
+          const c=C[i], r=R[i];
+          rows.push({
+            Match:`${m.home_team} vs ${m.away_team}`,
+            C_H:c.predictions.main.home_win, C_D:c.predictions.main.draw, C_A:c.predictions.main.away_win, C_Conf:c.predictions.main.confidence,
+            B_H:m.predictions.main.home_win, B_D:m.predictions.main.draw, B_A:m.predictions.main.away_win, B_Conf:m.predictions.main.confidence,
+            R_H:r.predictions.main.home_win, R_D:r.predictions.main.draw, R_A:r.predictions.main.away_win, R_Conf:r.predictions.main.confidence
+          })
+        })
+      }
+      const csv = [Object.keys(rows[0]).join(',')].concat(rows.map(r=>Object.values(r).map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','))).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download=`HAFEZ_${window.currentTab}_W${document.getElementById('week').value}.csv`; a.click(); URL.revokeObjectURL(url);
+    }
+    async function render(){
+      const w = document.getElementById('week').value;
+      const tab = window.currentTab || 'Shortlist';
+      const el = document.getElementById('content');
+      if (tab==='Shortlist'){
+        const d = await fetch(`../../public/data/HAFEZ_LaLiga_Week${w}_Shortlist.json`).then(r=>r.json());
+        window.currentData = d;
+        el.innerHTML = `<div class="card"><h3>Shortlist هفته ${w}</h3>
+          <div class="row"><span class="pill">High ≥ 0.65</span><span class="pill">Medium 0.45–0.64</span><span class="pill">Low < 0.45</span></div>
+          <h4>High</h4>${tableSL(d.shortlist.high_confidence)}
+          <h4>Medium</h4>${tableSL(d.shortlist.medium_confidence)}
+          <h4>Low</h4>${tableSL(d.shortlist.low_confidence)}
+          <h4>Upset Candidates</h4>${tableSL(d.upset_candidates || [])}
+        </div>`;
+      } else if (tab==='Heatmap'){
+        const d = await fetch(`../../public/data/HAFEZ_LaLiga_Week${w}_ALL_v2_0_1.json`).then(r=>r.json());
+        window.currentData = d;
+        const arr = d.goals.Balanced;
+        el.innerHTML = `<div class="card"><h3>Heatmap هفته ${w} (Balanced)</h3>${tableHM(arr)}</div>`;
+      } else {
+        const [c,b,r] = await Promise.all([
+          fetch(`../../public/data/HAFEZ_LaLiga_Week${w}_Conservative.json`).then(x=>x.json()),
+          fetch(`../../public/data/HAFEZ_LaLiga_Week${w}_Balanced.json`).then(x=>x.json()),
+          fetch(`../../public/data/HAFEZ_LaLiga_Week${w}_Risky.json`).then(x=>x.json())
+        ]);
+        window.currentDataC = c; window.currentDataB = b; window.currentDataR = r;
+        el.innerHTML = `<div class="card"><h3>Compare C/B/R – هفته ${w}</h3>${tableCMP(c,b,r)}</div>`;
+      }
+    }
+    function tableSL(items){
+      if (!items || !items.length) return '<div>—</div>';
+      let rows = items.map(r=>`<tr><td>${r.Match}</td><td>${r.TopPick}</td><td>${(r.Confidence*100).toFixed(1)}%</td></tr>`).join('');
+      return `<table><thead><tr><th>Match</th><th>Top Pick</th><th>Confidence</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+    function bar(p){ const w = Math.round(p*100); return `<div style="height:10px;background:#e5e7eb;border-radius:6px"><div style="width:${w}%;height:10px;background:#60a5fa;border-radius:6px"></div></div>` }
+    function tableHM(arr){
+      let rows = arr.map(m=>`<tr>
+        <td>${m.home_team} vs ${m.away_team}</td>
+        <td>${(m.predictions.main.home_win*100).toFixed(0)}% ${bar(m.predictions.main.home_win)}</td>
+        <td>${(m.predictions.main.draw*100).toFixed(0)}% ${bar(m.predictions.main.draw)}</td>
+        <td>${(m.predictions.main.away_win*100).toFixed(0)}% ${bar(m.predictions.main.away_win)}</td>
+        <td>${(m.predictions.main.confidence*100).toFixed(0)}%</td>
+      </tr>`).join('');
+      return `<table><thead><tr><th>Match</th><th>H</th><th>D</th><th>A</th><th>Conf</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+    function cell(p){return `${(p*100).toFixed(0)}%`; }
+    function tableCMP(C,B,R){
+      let rows = B.matches.map((m,i)=>{
+        const c=C.matches[i], r=R.matches[i];
+        return `<tr>
+          <td>${m.home_team} vs ${m.away_team}</td>
+          <td>${cell(c.predictions.main.home_win)} / ${cell(c.predictions.main.draw)} / ${cell(c.predictions.main.away_win)} (${(c.predictions.main.confidence*100).toFixed(0)}%)</td>
+          <td>${cell(m.predictions.main.home_win)} / ${cell(m.predictions.main.draw)} / ${cell(m.predictions.main.away_win)} (${(m.predictions.main.confidence*100).toFixed(0)}%)</td>
+          <td>${cell(r.predictions.main.home_win)} / ${cell(r.predictions.main.draw)} / ${cell(r.predictions.main.away_win)} (${(r.predictions.main.confidence*100).toFixed(0)}%)</td>
+        </tr>`;
+      }).join('');
+      return `<table><thead><tr><th>Match</th><th>Conservative</th><th>Balanced</th><th>Risky</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+    render();
+  </script>
+</body>
+</html>
