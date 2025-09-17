@@ -1,0 +1,110 @@
+{
+  "version": "2.0.1-RB",
+  "league": "La Liga",
+  "season": "2025-26",
+  "matchday": 1,
+  "corners": {
+    "matches": [
+      {
+        "home_team": "Girona FC",
+        "away_team": "Rayo Vallecano",
+        "corners": {
+          "total_expected": 9.91,
+          "over_8_5": 0.657,
+          "over_9_5": 0.531,
+          "over_10_5": 0.406
+        }
+      },
+      {
+        "home_team": "Villarreal CF",
+        "away_team": "Real Oviedo",
+        "corners": {
+          "total_expected": 9.55,
+          "over_8_5": 0.614,
+          "over_9_5": 0.485,
+          "over_10_5": 0.361
+        }
+      },
+      {
+        "home_team": "RCD Mallorca",
+        "away_team": "FC Barcelona",
+        "corners": {
+          "total_expected": 9.82,
+          "over_8_5": 0.647,
+          "over_9_5": 0.519,
+          "over_10_5": 0.395
+        }
+      },
+      {
+        "home_team": "Deportivo Alavés",
+        "away_team": "Levante UD",
+        "corners": {
+          "total_expected": 9.78,
+          "over_8_5": 0.642,
+          "over_9_5": 0.514,
+          "over_10_5": 0.389
+        }
+      },
+      {
+        "home_team": "Valencia CF",
+        "away_team": "Real Sociedad",
+        "corners": {
+          "total_expected": 9.47,
+          "over_8_5": 0.605,
+          "over_9_5": 0.475,
+          "over_10_5": 0.351
+        }
+      },
+      {
+        "home_team": "Celta",
+        "away_team": "Getafe CF",
+        "corners": {
+          "total_expected": 10.17,
+          "over_8_5": 0.686,
+          "over_9_5": 0.563,
+          "over_10_5": 0.438
+        }
+      },
+      {
+        "home_team": "Athletic Club",
+        "away_team": "Sevilla FC",
+        "corners": {
+          "total_expected": 9.58,
+          "over_8_5": 0.618,
+          "over_9_5": 0.489,
+          "over_10_5": 0.365
+        }
+      },
+      {
+        "home_team": "RCD Espanyol de Barcelona",
+        "away_team": "Atlético de Madrid",
+        "corners": {
+          "total_expected": 9.28,
+          "over_8_5": 0.581,
+          "over_9_5": 0.45,
+          "over_10_5": 0.328
+        }
+      },
+      {
+        "home_team": "Elche CF",
+        "away_team": "Real Betis",
+        "corners": {
+          "total_expected": 9.8,
+          "over_8_5": 0.644,
+          "over_9_5": 0.517,
+          "over_10_5": 0.392
+        }
+      },
+      {
+        "home_team": "Real Madrid",
+        "away_team": "CA Osasuna",
+        "corners": {
+          "total_expected": 9.93,
+          "over_8_5": 0.659,
+          "over_9_5": 0.533,
+          "over_10_5": 0.408
+        }
+      }
+    ]
+  }
+}

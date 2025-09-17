@@ -1,0 +1,110 @@
+{
+  "version": "2.0.1-RB",
+  "league": "La Liga",
+  "season": "2025-26",
+  "matchday": 3,
+  "corners": {
+    "matches": [
+      {
+        "home_team": "Elche CF",
+        "away_team": "Levante UD",
+        "corners": {
+          "total_expected": 9.98,
+          "over_8_5": 0.665,
+          "over_9_5": 0.54,
+          "over_10_5": 0.415
+        }
+      },
+      {
+        "home_team": "Valencia CF",
+        "away_team": "Getafe CF",
+        "corners": {
+          "total_expected": 9.64,
+          "over_8_5": 0.625,
+          "over_9_5": 0.496,
+          "over_10_5": 0.372
+        }
+      },
+      {
+        "home_team": "Deportivo Alavés",
+        "away_team": "Atlético de Madrid",
+        "corners": {
+          "total_expected": 9.34,
+          "over_8_5": 0.588,
+          "over_9_5": 0.457,
+          "over_10_5": 0.335
+        }
+      },
+      {
+        "home_team": "Real Oviedo",
+        "away_team": "Real Sociedad",
+        "corners": {
+          "total_expected": 9.39,
+          "over_8_5": 0.595,
+          "over_9_5": 0.464,
+          "over_10_5": 0.341
+        }
+      },
+      {
+        "home_team": "Girona FC",
+        "away_team": "Sevilla FC",
+        "corners": {
+          "total_expected": 9.26,
+          "over_8_5": 0.578,
+          "over_9_5": 0.447,
+          "over_10_5": 0.325
+        }
+      },
+      {
+        "home_team": "Real Madrid",
+        "away_team": "RCD Mallorca",
+        "corners": {
+          "total_expected": 10.07,
+          "over_8_5": 0.675,
+          "over_9_5": 0.551,
+          "over_10_5": 0.426
+        }
+      },
+      {
+        "home_team": "Celta",
+        "away_team": "Villarreal CF",
+        "corners": {
+          "total_expected": 10.09,
+          "over_8_5": 0.677,
+          "over_9_5": 0.553,
+          "over_10_5": 0.428
+        }
+      },
+      {
+        "home_team": "Real Betis",
+        "away_team": "Athletic Club",
+        "corners": {
+          "total_expected": 9.89,
+          "over_8_5": 0.655,
+          "over_9_5": 0.529,
+          "over_10_5": 0.404
+        }
+      },
+      {
+        "home_team": "RCD Espanyol de Barcelona",
+        "away_team": "CA Osasuna",
+        "corners": {
+          "total_expected": 9.96,
+          "over_8_5": 0.663,
+          "over_9_5": 0.537,
+          "over_10_5": 0.412
+        }
+      },
+      {
+        "home_team": "Rayo Vallecano",
+        "away_team": "FC Barcelona",
+        "corners": {
+          "total_expected": 9.66,
+          "over_8_5": 0.628,
+          "over_9_5": 0.499,
+          "over_10_5": 0.375
+        }
+      }
+    ]
+  }
+}

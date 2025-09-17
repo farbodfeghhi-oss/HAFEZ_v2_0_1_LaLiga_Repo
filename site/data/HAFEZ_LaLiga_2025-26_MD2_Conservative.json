@@ -1,0 +1,749 @@
+{
+  "version": "2.0.1-RB",
+  "league": "La Liga",
+  "season": "2025-26",
+  "matchday": 2,
+  "mode": "Conservative",
+  "matches": [
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Real Betis",
+      "away_team": "Deportivo Alavés",
+      "date": "2025-08-22",
+      "predictions": {
+        "main": {
+          "home_win": 0.389,
+          "draw": 0.29,
+          "away_win": 0.321,
+          "top_pick": "Home Win",
+          "confidence": 0.007
+        },
+        "goals": {
+          "total_expected": 2.17,
+          "over_0_5": 0.899,
+          "over_1_5": 0.666,
+          "over_2_5": 0.401,
+          "over_3_5": 0.198,
+          "over_4_5": 0.082,
+          "btts": 0.633
+        },
+        "halftime": {
+          "home_lead": 0.133,
+          "draw": 0.4,
+          "away_lead": 0.091
+        },
+        "second_half": {
+          "home_win_2H": 0.134,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.091
+        },
+        "first_goal": {
+          "home": 0.468,
+          "away": 0.431,
+          "no_goal": 0.101
+        },
+        "corners": {
+          "total_expected": 9.75,
+          "over_8_5": 0.638,
+          "over_9_5": 0.51,
+          "over_10_5": 0.385
+        },
+        "likely_scorers": [
+          {
+            "player": "Real Betis FWD",
+            "prob": 0.433
+          },
+          {
+            "player": "Deportivo Alavés FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "Real Betis MID",
+            "prob": 0.247
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 0
+        },
+        "total_goals": 1,
+        "winner": "Home",
+        "btts": false,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "RCD Mallorca",
+      "away_team": "Celta",
+      "date": "2025-08-23",
+      "predictions": {
+        "main": {
+          "home_win": 0.369,
+          "draw": 0.29,
+          "away_win": 0.341,
+          "top_pick": "Home Win",
+          "confidence": 0.004
+        },
+        "goals": {
+          "total_expected": 2.08,
+          "over_0_5": 0.889,
+          "over_1_5": 0.645,
+          "over_2_5": 0.376,
+          "over_3_5": 0.18,
+          "over_4_5": 0.072,
+          "btts": 0.643
+        },
+        "halftime": {
+          "home_lead": 0.127,
+          "draw": 0.4,
+          "away_lead": 0.096
+        },
+        "second_half": {
+          "home_win_2H": 0.127,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.096
+        },
+        "first_goal": {
+          "home": 0.454,
+          "away": 0.438,
+          "no_goal": 0.107
+        },
+        "corners": {
+          "total_expected": 9.64,
+          "over_8_5": 0.625,
+          "over_9_5": 0.496,
+          "over_10_5": 0.372
+        },
+        "likely_scorers": [
+          {
+            "player": "RCD Mallorca FWD",
+            "prob": 0.43
+          },
+          {
+            "player": "Celta FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "RCD Mallorca MID",
+            "prob": 0.25
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 1
+        },
+        "total_goals": 2,
+        "winner": "Draw",
+        "btts": true,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Atlético de Madrid",
+      "away_team": "Elche CF",
+      "date": "2025-08-23",
+      "predictions": {
+        "main": {
+          "home_win": 0.388,
+          "draw": 0.29,
+          "away_win": 0.322,
+          "top_pick": "Home Win",
+          "confidence": 0.007
+        },
+        "goals": {
+          "total_expected": 2.14,
+          "over_0_5": 0.896,
+          "over_1_5": 0.66,
+          "over_2_5": 0.393,
+          "over_3_5": 0.193,
+          "over_4_5": 0.079,
+          "btts": 0.633
+        },
+        "halftime": {
+          "home_lead": 0.133,
+          "draw": 0.4,
+          "away_lead": 0.091
+        },
+        "second_half": {
+          "home_win_2H": 0.134,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.091
+        },
+        "first_goal": {
+          "home": 0.467,
+          "away": 0.43,
+          "no_goal": 0.103
+        },
+        "corners": {
+          "total_expected": 9.74,
+          "over_8_5": 0.637,
+          "over_9_5": 0.509,
+          "over_10_5": 0.384
+        },
+        "likely_scorers": [
+          {
+            "player": "Julián Álvarez",
+            "prob": 0.433
+          },
+          {
+            "player": "Antoine Griezmann",
+            "prob": 0.32
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 1
+        },
+        "total_goals": 2,
+        "winner": "Draw",
+        "btts": true,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Levante UD",
+      "away_team": "FC Barcelona",
+      "date": "2025-08-23",
+      "predictions": {
+        "main": {
+          "home_win": 0.325,
+          "draw": 0.29,
+          "away_win": 0.385,
+          "top_pick": "Away Win",
+          "confidence": 0.006
+        },
+        "goals": {
+          "total_expected": 2.15,
+          "over_0_5": 0.897,
+          "over_1_5": 0.663,
+          "over_2_5": 0.397,
+          "over_3_5": 0.195,
+          "over_4_5": 0.081,
+          "btts": 0.634
+        },
+        "halftime": {
+          "home_lead": 0.112,
+          "draw": 0.4,
+          "away_lead": 0.108
+        },
+        "second_half": {
+          "home_win_2H": 0.112,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.109
+        },
+        "first_goal": {
+          "home": 0.432,
+          "away": 0.466,
+          "no_goal": 0.102
+        },
+        "corners": {
+          "total_expected": 9.94,
+          "over_8_5": 0.661,
+          "over_9_5": 0.535,
+          "over_10_5": 0.41
+        },
+        "likely_scorers": [
+          {
+            "player": "Robert Lewandowski",
+            "prob": 0.422
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 2,
+          "away": 3
+        },
+        "total_goals": 5,
+        "winner": "Away",
+        "btts": true,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "CA Osasuna",
+      "away_team": "Valencia CF",
+      "date": "2025-08-24",
+      "predictions": {
+        "main": {
+          "home_win": 0.335,
+          "draw": 0.29,
+          "away_win": 0.375,
+          "top_pick": "Away Win",
+          "confidence": 0.005
+        },
+        "goals": {
+          "total_expected": 2.14,
+          "over_0_5": 0.896,
+          "over_1_5": 0.66,
+          "over_2_5": 0.393,
+          "over_3_5": 0.193,
+          "over_4_5": 0.079,
+          "btts": 0.64
+        },
+        "halftime": {
+          "home_lead": 0.115,
+          "draw": 0.4,
+          "away_lead": 0.105
+        },
+        "second_half": {
+          "home_win_2H": 0.116,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.106
+        },
+        "first_goal": {
+          "home": 0.437,
+          "away": 0.459,
+          "no_goal": 0.103
+        },
+        "corners": {
+          "total_expected": 9.76,
+          "over_8_5": 0.639,
+          "over_9_5": 0.512,
+          "over_10_5": 0.387
+        },
+        "likely_scorers": [
+          {
+            "player": "CA Osasuna FWD",
+            "prob": 0.424
+          },
+          {
+            "player": "Valencia CF FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "CA Osasuna MID",
+            "prob": 0.256
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 0
+        },
+        "total_goals": 1,
+        "winner": "Home",
+        "btts": false,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Real Sociedad",
+      "away_team": "RCD Espanyol de Barcelona",
+      "date": "2025-08-24",
+      "predictions": {
+        "main": {
+          "home_win": 0.389,
+          "draw": 0.29,
+          "away_win": 0.321,
+          "top_pick": "Home Win",
+          "confidence": 0.007
+        },
+        "goals": {
+          "total_expected": 2.17,
+          "over_0_5": 0.899,
+          "over_1_5": 0.667,
+          "over_2_5": 0.401,
+          "over_3_5": 0.199,
+          "over_4_5": 0.083,
+          "btts": 0.633
+        },
+        "halftime": {
+          "home_lead": 0.134,
+          "draw": 0.4,
+          "away_lead": 0.091
+        },
+        "second_half": {
+          "home_win_2H": 0.134,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.091
+        },
+        "first_goal": {
+          "home": 0.468,
+          "away": 0.431,
+          "no_goal": 0.101
+        },
+        "corners": {
+          "total_expected": 9.55,
+          "over_8_5": 0.615,
+          "over_9_5": 0.485,
+          "over_10_5": 0.361
+        },
+        "likely_scorers": [
+          {
+            "player": "Real Sociedad FWD",
+            "prob": 0.433
+          },
+          {
+            "player": "RCD Espanyol de Barcelona FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "Real Sociedad MID",
+            "prob": 0.247
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 2,
+          "away": 2
+        },
+        "total_goals": 4,
+        "winner": "Draw",
+        "btts": true,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Villarreal CF",
+      "away_team": "Girona FC",
+      "date": "2025-08-24",
+      "predictions": {
+        "main": {
+          "home_win": 0.413,
+          "draw": 0.29,
+          "away_win": 0.297,
+          "top_pick": "Home Win",
+          "confidence": 0.013
+        },
+        "goals": {
+          "total_expected": 2.15,
+          "over_0_5": 0.897,
+          "over_1_5": 0.663,
+          "over_2_5": 0.397,
+          "over_3_5": 0.195,
+          "over_4_5": 0.081,
+          "btts": 0.62
+        },
+        "halftime": {
+          "home_lead": 0.142,
+          "draw": 0.4,
+          "away_lead": 0.084
+        },
+        "second_half": {
+          "home_win_2H": 0.142,
+          "draw_2H": 0.398,
+          "away_win_2H": 0.084
+        },
+        "first_goal": {
+          "home": 0.481,
+          "away": 0.416,
+          "no_goal": 0.103
+        },
+        "corners": {
+          "total_expected": 10.18,
+          "over_8_5": 0.687,
+          "over_9_5": 0.565,
+          "over_10_5": 0.44
+        },
+        "likely_scorers": [
+          {
+            "player": "Villarreal CF FWD",
+            "prob": 0.437
+          },
+          {
+            "player": "Girona FC FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "Villarreal CF MID",
+            "prob": 0.243
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 5,
+          "away": 0
+        },
+        "total_goals": 5,
+        "winner": "Home",
+        "btts": false,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Real Oviedo",
+      "away_team": "Real Madrid",
+      "date": "2025-08-24",
+      "predictions": {
+        "main": {
+          "home_win": 0.326,
+          "draw": 0.29,
+          "away_win": 0.384,
+          "top_pick": "Away Win",
+          "confidence": 0.006
+        },
+        "goals": {
+          "total_expected": 2.15,
+          "over_0_5": 0.897,
+          "over_1_5": 0.663,
+          "over_2_5": 0.397,
+          "over_3_5": 0.195,
+          "over_4_5": 0.081,
+          "btts": 0.635
+        },
+        "halftime": {
+          "home_lead": 0.112,
+          "draw": 0.4,
+          "away_lead": 0.108
+        },
+        "second_half": {
+          "home_win_2H": 0.112,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.108
+        },
+        "first_goal": {
+          "home": 0.433,
+          "away": 0.465,
+          "no_goal": 0.102
+        },
+        "corners": {
+          "total_expected": 9.59,
+          "over_8_5": 0.619,
+          "over_9_5": 0.49,
+          "over_10_5": 0.366
+        },
+        "likely_scorers": [
+          {
+            "player": "Kylian Mbappé",
+            "prob": 0.422
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 0,
+          "away": 3
+        },
+        "total_goals": 3,
+        "winner": "Away",
+        "btts": false,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Athletic Club",
+      "away_team": "Rayo Vallecano",
+      "date": "2025-08-25",
+      "predictions": {
+        "main": {
+          "home_win": 0.397,
+          "draw": 0.29,
+          "away_win": 0.313,
+          "top_pick": "Home Win",
+          "confidence": 0.008
+        },
+        "goals": {
+          "total_expected": 2.18,
+          "over_0_5": 0.9,
+          "over_1_5": 0.67,
+          "over_2_5": 0.405,
+          "over_3_5": 0.201,
+          "over_4_5": 0.084,
+          "btts": 0.628
+        },
+        "halftime": {
+          "home_lead": 0.136,
+          "draw": 0.4,
+          "away_lead": 0.088
+        },
+        "second_half": {
+          "home_win_2H": 0.137,
+          "draw_2H": 0.398,
+          "away_win_2H": 0.088
+        },
+        "first_goal": {
+          "home": 0.473,
+          "away": 0.426,
+          "no_goal": 0.101
+        },
+        "corners": {
+          "total_expected": 9.94,
+          "over_8_5": 0.66,
+          "over_9_5": 0.534,
+          "over_10_5": 0.409
+        },
+        "likely_scorers": [
+          {
+            "player": "Athletic Club FWD",
+            "prob": 0.434
+          },
+          {
+            "player": "Rayo Vallecano FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "Athletic Club MID",
+            "prob": 0.246
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 0
+        },
+        "total_goals": 1,
+        "winner": "Home",
+        "btts": false,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    },
+    {
+      "season": "2025-26",
+      "version": "2.0.1-RB",
+      "league": "La Liga",
+      "matchday": 2,
+      "source": "laliga.com",
+      "home_team": "Sevilla FC",
+      "away_team": "Getafe CF",
+      "date": "2025-08-25",
+      "predictions": {
+        "main": {
+          "home_win": 0.353,
+          "draw": 0.29,
+          "away_win": 0.357,
+          "top_pick": "Away Win",
+          "confidence": 0.004
+        },
+        "goals": {
+          "total_expected": 2.11,
+          "over_0_5": 0.892,
+          "over_1_5": 0.652,
+          "over_2_5": 0.385,
+          "over_3_5": 0.186,
+          "over_4_5": 0.076,
+          "btts": 0.649
+        },
+        "halftime": {
+          "home_lead": 0.121,
+          "draw": 0.4,
+          "away_lead": 0.101
+        },
+        "second_half": {
+          "home_win_2H": 0.122,
+          "draw_2H": 0.399,
+          "away_win_2H": 0.101
+        },
+        "first_goal": {
+          "home": 0.446,
+          "away": 0.449,
+          "no_goal": 0.105
+        },
+        "corners": {
+          "total_expected": 9.4,
+          "over_8_5": 0.595,
+          "over_9_5": 0.464,
+          "over_10_5": 0.342
+        },
+        "likely_scorers": [
+          {
+            "player": "Sevilla FC FWD",
+            "prob": 0.427
+          },
+          {
+            "player": "Getafe CF FWD",
+            "prob": 0.32
+          },
+          {
+            "player": "Sevilla FC MID",
+            "prob": 0.253
+          }
+        ]
+      },
+      "actuals": {
+        "final_score": {
+          "home": 1,
+          "away": 2
+        },
+        "total_goals": 3,
+        "winner": "Away",
+        "btts": true,
+        "halftime": null,
+        "second_half": null,
+        "first_goal": null,
+        "corners": null
+      }
+    }
+  ]
+}
