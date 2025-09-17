@@ -1,0 +1,50 @@
+name: Build & Commit DataPack
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Season (e.g., 2025-26)"
+        required: true
+        default: "2025-26"
+  push:
+    paths:
+      - 'public/data/**.json'
+
+permissions:
+  contents: write
+
+jobs:
+  pack-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Package DataPack
+        run: |
+          python -m pip install --upgrade pip
+          python scripts/datapack_pack.py "${{ github.event.inputs.season || '2025-26' }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DataPack-${{ github.event.inputs.season || '2025-26' }}
+          path: artifacts/*.zip
+
+      - name: Commit packaged DataPack into repo (optional)
+        run: |
+          set -e
+          if [ -f artifacts/*.zip ]; then
+            mkdir -p public/datapack
+            cp artifacts/*.zip public/datapack/
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/datapack/*.zip || true
+            git commit -m "chore(datapack): update zip for ${{ github.event.inputs.season || '2025-26' }}" || true
+            git push || true
+          fi

@@ -1,0 +1,93 @@
+name: Refresh, Build & Deploy Dashboard
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Season (e.g., 2025-26)"
+        required: true
+        default: "2025-26"
+      matchday:
+        description: "Matchday to fetch (optional)"
+        required: false
+        default: ""
+      do_fetch:
+        description: "Run fetch_actuals before build? (true/false)"
+        required: true
+        default: "false"
+  push:
+    paths:
+      - "public/data/**.json"
+      - "public/index.html"
+      - "public/assets/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "hafez-pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pandas matplotlib numpy
+
+      - name: (Optional) Fetch actuals
+        if: ${{ github.event.inputs.do_fetch == 'true' && github.event.inputs.matchday != '' }}
+        run: |
+          python scripts/fetch_actuals_fbref_understat.py \
+            --season "${{ github.event.inputs.season }}" \
+            --matchday "${{ github.event.inputs.matchday }}" \
+            --data-dir public/data \
+            --name-map mappings/name_maps_la_liga.json
+
+      - name: Build metrics (AutoRange)
+        run: |
+          python scripts/make_metrics.py \
+            --season "${{ github.event.inputs.season || '2025-26' }}" \
+            --start-md 1 \
+            --end-md 38 \
+            --data-dir public/data \
+            --out-dir public/metrics
+
+      - name: Package DataPack
+        run: |
+          python scripts/datapack_pack.py "${{ github.event.inputs.season || '2025-26' }}"
+
+      - name: Assemble site
+        run: |
+          python scripts/build_site.py
+          ls -la site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

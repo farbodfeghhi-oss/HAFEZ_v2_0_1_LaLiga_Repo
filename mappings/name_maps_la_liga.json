@@ -1,82 +1,9 @@
 {
-  "Real Madrid": {
-    "understat": "Real Madrid",
-    "fbref": "Real Madrid"
-  },
-  "FC Barcelona": {
-    "understat": "Barcelona",
-    "fbref": "Barcelona"
-  },
-  "Atlético de Madrid": {
-    "understat": "Atletico Madrid",
-    "fbref": "Atlético Madrid"
-  },
-  "Real Sociedad": {
-    "understat": "Real Sociedad",
-    "fbref": "Real Sociedad"
-  },
-  "Athletic Club": {
-    "understat": "Athletic Club",
-    "fbref": "Athletic Club"
-  },
-  "Valencia CF": {
-    "understat": "Valencia",
-    "fbref": "Valencia"
-  },
-  "Villarreal CF": {
-    "understat": "Villarreal",
-    "fbref": "Villarreal"
-  },
-  "Real Betis": {
-    "understat": "Real Betis",
-    "fbref": "Real Betis"
-  },
-  "Sevilla FC": {
-    "understat": "Sevilla",
-    "fbref": "Sevilla"
-  },
-  "Celta": {
-    "understat": "Celta Vigo",
-    "fbref": "Celta Vigo"
-  },
-  "Getafe CF": {
-    "understat": "Getafe",
-    "fbref": "Getafe"
-  },
-  "CA Osasuna": {
-    "understat": "Osasuna",
-    "fbref": "Osasuna"
-  },
-  "Rayo Vallecano": {
-    "understat": "Rayo Vallecano",
-    "fbref": "Rayo Vallecano"
-  },
-  "Deportivo Alavés": {
-    "understat": "Alaves",
-    "fbref": "Alavés"
-  },
-  "RCD Mallorca": {
-    "understat": "Mallorca",
-    "fbref": "Mallorca"
-  },
-  "RCD Espanyol de Barcelona": {
-    "understat": "Espanyol",
-    "fbref": "Espanyol"
-  },
-  "Girona FC": {
-    "understat": "Girona",
-    "fbref": "Girona"
-  },
-  "Elche CF": {
-    "understat": "Elche",
-    "fbref": "Elche"
-  },
-  "Levante UD": {
-    "understat": "Levante",
-    "fbref": "Levante"
-  },
-  "Real Oviedo": {
-    "understat": "Real Oviedo",
-    "fbref": "Real Oviedo"
-  }
+  "Real Madrid CF": "Real Madrid",
+  "FC Barcelona": "FC Barcelona",
+  "Atlético Madrid": "Atlético de Madrid",
+  "Athletic Bilbao": "Athletic Club",
+  "RCD Espanyol": "RCD Espanyol de Barcelona",
+  "Osasuna": "CA Osasuna",
+  "Alaves": "Deportivo Alavés"
 }
