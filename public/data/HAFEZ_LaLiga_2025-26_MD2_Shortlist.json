@@ -1,0 +1,59 @@
+{
+  "version": "2.0.1-RB",
+  "league": "La Liga",
+  "season": "2025-26",
+  "matchday": 2,
+  "shortlist": {
+    "high_confidence": [],
+    "medium_confidence": [],
+    "low_confidence": [
+      {
+        "Match": "Real Betis vs Deportivo Alavés",
+        "TopPick": "Home Win",
+        "Confidence": 0.014
+      },
+      {
+        "Match": "RCD Mallorca vs Celta",
+        "TopPick": "Home Win",
+        "Confidence": 0.012
+      },
+      {
+        "Match": "Atlético de Madrid vs Elche CF",
+        "TopPick": "Home Win",
+        "Confidence": 0.014
+      },
+      {
+        "Match": "Levante UD vs FC Barcelona",
+        "TopPick": "Away Win",
+        "Confidence": 0.014
+      }
+    ]
+  },
+  "upset_candidates": [
+    {
+      "Match": "Real Betis vs Deportivo Alavés",
+      "TopPick": "Home Win",
+      "Confidence": 0.014
+    },
+    {
+      "Match": "RCD Mallorca vs Celta",
+      "TopPick": "Home Win",
+      "Confidence": 0.012
+    },
+    {
+      "Match": "Atlético de Madrid vs Elche CF",
+      "TopPick": "Home Win",
+      "Confidence": 0.014
+    },
+    {
+      "Match": "Levante UD vs FC Barcelona",
+      "TopPick": "Away Win",
+      "Confidence": 0.014
+    },
+    {
+      "Match": "CA Osasuna vs Valencia CF",
+      "TopPick": "Away Win",
+      "Confidence": 0.013
+    }
+  ]
+}

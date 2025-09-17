@@ -1,0 +1,46 @@
+name: Fetch Actuals (FBref + Understat)
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: 'Season, e.g. 2025-26'
+        required: true
+        default: '2025-26'
+      matchday:
+        description: 'Matchday number (1..38)'
+        required: true
+        default: '5'
+permissions:
+  contents: write
+jobs:
+  fetch-actuals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
+      - name: Run fetcher
+        run: |
+          python scripts/fetch_actuals_fbref_understat.py --season "${{ github.event.inputs.season }}" --matchday "${{ github.event.inputs.matchday }}" --data_dir "public/data" || true
+      - name: Show changes
+        run: |
+          git status
+          git diff --stat || true
+      - name: Commit & Push (if changed)
+        run: |
+          set -e
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "${{ github.actor }}"
+            git config user.email "${{ github.actor }}@users.noreply.github.com"
+            git add public/data/*Actuals_Extended.json || true
+            git commit -m "chore(actuals): update Actuals_Extended via FBref/Understat (MD ${{ github.event.inputs.matchday }}, season ${{ github.event.inputs.season }})"
+            git push
+          else
+            echo "No changes."

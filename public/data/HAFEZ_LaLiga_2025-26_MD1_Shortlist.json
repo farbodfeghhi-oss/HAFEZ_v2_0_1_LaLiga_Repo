@@ -1,0 +1,59 @@
+{
+  "version": "2.0.1-RB",
+  "league": "La Liga",
+  "season": "2025-26",
+  "matchday": 1,
+  "shortlist": {
+    "high_confidence": [],
+    "medium_confidence": [],
+    "low_confidence": [
+      {
+        "Match": "Girona FC vs Rayo Vallecano",
+        "TopPick": "Home Win",
+        "Confidence": 0.012
+      },
+      {
+        "Match": "Villarreal CF vs Real Oviedo",
+        "TopPick": "Home Win",
+        "Confidence": 0.016
+      },
+      {
+        "Match": "RCD Mallorca vs FC Barcelona",
+        "TopPick": "Away Win",
+        "Confidence": 0.012
+      },
+      {
+        "Match": "Deportivo Alavés vs Levante UD",
+        "TopPick": "Home Win",
+        "Confidence": 0.012
+      }
+    ]
+  },
+  "upset_candidates": [
+    {
+      "Match": "Girona FC vs Rayo Vallecano",
+      "TopPick": "Home Win",
+      "Confidence": 0.012
+    },
+    {
+      "Match": "Villarreal CF vs Real Oviedo",
+      "TopPick": "Home Win",
+      "Confidence": 0.016
+    },
+    {
+      "Match": "RCD Mallorca vs FC Barcelona",
+      "TopPick": "Away Win",
+      "Confidence": 0.012
+    },
+    {
+      "Match": "Deportivo Alavés vs Levante UD",
+      "TopPick": "Home Win",
+      "Confidence": 0.012
+    },
+    {
+      "Match": "Valencia CF vs Real Sociedad",
+      "TopPick": "Home Win",
+      "Confidence": 0.012
+    }
+  ]
+}

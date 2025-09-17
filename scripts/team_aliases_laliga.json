@@ -1,0 +1,93 @@
+{
+  "Real Madrid": [
+    "Real Madrid",
+    "Real-Madrid",
+    "Madrid"
+  ],
+  "FC Barcelona": [
+    "FC Barcelona",
+    "Barcelona",
+    "Barca",
+    "Barça"
+  ],
+  "Atlético de Madrid": [
+    "Atlético de Madrid",
+    "Atletico Madrid",
+    "Atlético Madrid",
+    "Atl. Madrid",
+    "Atletico"
+  ],
+  "Athletic Club": [
+    "Athletic Club",
+    "Athletic Bilbao",
+    "Athletic"
+  ],
+  "Real Sociedad": [
+    "Real Sociedad",
+    "Sociedad"
+  ],
+  "Sevilla FC": [
+    "Sevilla FC",
+    "Sevilla"
+  ],
+  "Valencia CF": [
+    "Valencia CF",
+    "Valencia"
+  ],
+  "Villarreal CF": [
+    "Villarreal CF",
+    "Villarreal"
+  ],
+  "Real Betis": [
+    "Real Betis",
+    "Betis"
+  ],
+  "Celta": [
+    "Celta Vigo",
+    "Celta de Vigo",
+    "Celta"
+  ],
+  "Getafe CF": [
+    "Getafe CF",
+    "Getafe"
+  ],
+  "Deportivo Alavés": [
+    "Deportivo Alavés",
+    "Alaves",
+    "Alavés"
+  ],
+  "CA Osasuna": [
+    "CA Osasuna",
+    "Osasuna"
+  ],
+  "Girona FC": [
+    "Girona FC",
+    "Girona"
+  ],
+  "Rayo Vallecano": [
+    "Rayo Vallecano",
+    "Rayo"
+  ],
+  "Levante UD": [
+    "Levante UD",
+    "Levante"
+  ],
+  "Elche CF": [
+    "Elche CF",
+    "Elche"
+  ],
+  "RCD Mallorca": [
+    "RCD Mallorca",
+    "Mallorca"
+  ],
+  "Real Oviedo": [
+    "Real Oviedo",
+    "Oviedo"
+  ],
+  "RCD Espanyol de Barcelona": [
+    "RCD Espanyol",
+    "Espanyol",
+    "Espanyol Barcelona",
+    "RCD Espanyol de Barcelona"
+  ]
+}
