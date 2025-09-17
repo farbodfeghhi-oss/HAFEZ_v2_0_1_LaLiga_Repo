@@ -1,0 +1,6 @@
+
+param([string]$Season="2025-26",[int]$StartMD=1,[int]$EndMD=4,[string]$DataDir="public/data",[string]$OutDir="public/metrics")
+$ErrorActionPreference = "Stop"
+. .\.venv\Scripts\Activate.ps1
+python scripts\make_metrics.py --season $Season --start-md $StartMD --end-md $EndMD --data-dir $DataDir --out-dir $OutDir
+Write-Host "✅ Metrics built for MD$StartMD–MD$EndMD ($Season)" -ForegroundColor Green

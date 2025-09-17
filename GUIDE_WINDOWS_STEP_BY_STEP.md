@@ -1,0 +1,1 @@
+(See full guide content provided earlier—condensed here for the PR pack.)

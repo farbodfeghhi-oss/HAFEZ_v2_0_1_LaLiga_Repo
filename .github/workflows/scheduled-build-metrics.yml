@@ -1,0 +1,46 @@
+
+name: Scheduled Build Metrics
+
+on:
+  schedule:
+    # هر دوشنبه ساعت 04:00 UTC (پس از تکمیل هفته)
+    - cron: "0 4 * * MON"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Season (e.g., 2025-26)"
+        required: true
+        default: "2025-26"
+
+permissions:
+  contents: write
+
+env:
+  SEASON: ${{ github.event.inputs.season || '2025-26' }}
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas matplotlib numpy
+
+      - name: Auto-build metrics for 1..N (detected)
+        run: |
+          python scripts/auto_build_metrics.py --season "${{ env.SEASON }}" --data-dir "public/data" --out-dir "public/metrics"
+
+      - name: Commit & Push metrics
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(metrics): scheduled build for season ${{ env.SEASON }}"
+          file_pattern: |
+            public/metrics/**

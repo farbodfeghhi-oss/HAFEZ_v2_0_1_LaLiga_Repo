@@ -1,0 +1,6 @@
+
+param([string]$Season="2025-26",[int]$Matchday=1,[string]$DataDir="public/data")
+$ErrorActionPreference = "Stop"
+. .\.venv\Scripts\Activate.ps1
+python scripts/fetch_actuals_fbref_understat.py --season $Season --matchday $Matchday --data-dir $DataDir --name-map "mappings/name_maps_la_liga.json"
+Write-Host "✅ Actuals enriched for MD$Matchday ($Season)" -ForegroundColor Green

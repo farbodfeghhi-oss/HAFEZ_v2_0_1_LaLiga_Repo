@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HAFEZ — Metrics</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color:#111; }
+    h1 { margin: 0 0 6px; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    img { width: 100%; border: 1px solid #eee; border-radius: 8px; }
+    .card { border:1px solid #eee; border-radius:12px; padding:16px; box-shadow: 0 1px 8px rgba(0,0,0,0.04); }
+    table { width:100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align:left; }
+    .muted { color:#666; font-size:13px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>HAFEZ — Metrics</h1>
+  <p class="muted">Auto-generated calibration and performance charts. Files are written by CI into <code>public/metrics/</code>.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Calibration</h3>
+      <img src="calibration_1-4.png" alt="Calibration Plot (MD1–MD4)" />
+    </div>
+    <div class="card">
+      <h3>Weekly Accuracy</h3>
+      <img src="weekly_acc_1-4.png" alt="Weekly Accuracy (MD1–MD4)" />
+    </div>
+    <div class="card">
+      <h3>Weekly RPS</h3>
+      <img src="weekly_rps_1-4.png" alt="Weekly RPS (MD1–MD4)" />
+    </div>
+    <div class="card">
+      <h3>Reliability Table (CSV)</h3>
+      <p><a href="reliability_1-4.csv" download>Download CSV</a></p>
+      <h3>Bucket Performance (CSV)</h3>
+      <p><a href="bucket_perf_1-4.csv" download>Download CSV</a></p>
+      <h3>Summary (JSON)</h3>
+      <p><a href="summary_1-4.json" download>Download JSON</a></p>
+    </div>
+  </div>
+</body>
+</html>
