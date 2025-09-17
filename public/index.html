@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HAFEZ — La Liga v2.0.1 (RB) Dashboard Pro</title>
+<style>
+  :root {
+    --bg:#0b1220; --panel:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#9ca3af;
+    --ok:#22c55e; --bad:#ef4444; --mid:#eab308; --pending:#e5e7eb;
+    --accent:#22d3ee; --accent2:#38bdf8; --line:#1f2937;
+  }
+  * { box-sizing: border-box }
+  body {
+    margin:0; font-family: Vazirmatn, Segoe UI, Tahoma, Arial, sans-serif;
+    color:var(--ink);
+    background: url('assets/hafez_bench_bg.svg') center/cover fixed, radial-gradient(1200px 800px at 70% 10%, rgba(56,189,248,0.18), transparent), var(--bg);
+  }
+  header {
+    backdrop-filter: blur(8px);
+    background: rgba(15,23,42,0.75);
+    border-bottom: 1px solid #1f2937;
+    position: sticky; top:0; z-index:10; padding:12px 16px;
+    display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center;
+  }
+  .brand { display:flex; align-items:center; gap:12px }
+  .brand h1 { font-size:18px; margin:0 }
+  .controls { display:flex; gap:10px; flex-wrap: wrap; justify-content:flex-end }
+  .pill { background:#0b1220; border:1px solid #1f2937; padding:8px 10px; border-radius:12px; display:flex; gap:8px; align-items:center; }
+  label { font-size:12px; color:var(--muted) }
+  select, input { background:#0b1220; color:var(--ink); border:1px solid #1f2937; border-radius:8px; padding:6px 8px; font-size:13px }
+  button { background:#0b1220; color:var(--ink); border:1px solid #1f2937; border-radius:10px; padding:8px 12px; cursor:pointer }
+  button.primary { background: linear-gradient(135deg,#0ea5e9,#22d3ee); border:none; color:#0b1220; font-weight:600 }
+  main { max-width:1200px; margin: 18px auto; padding: 0 16px 40px }
+  .tabs { display:flex; gap:8px; margin-bottom:12px }
+  .tab { background:#0b1220; border:1px solid #1f2937; padding:10px 14px; border-radius:12px; cursor:pointer; font-size:13px }
+  .tab.active { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(34,211,238,0.15)); border-color:#22d3ee }
+  .panel { display:none }
+  .panel.active { display:block }
+  .grid { display:grid; gap:16px }
+  .grid.cols-2 { grid-template-columns: 2fr 1fr }
+  @media (max-width: 980px){ .grid.cols-2 { grid-template-columns: 1fr } }
+  .card { background:rgba(17,24,39,0.86); border:1px solid #1f2937; border-radius:14px; padding:14px; box-shadow: 0 10px 40px rgba(2,6,23,0.35) }
+  .card h3 { margin:8px 0 12px; font-size:16px }
+  table { width:100%; border-collapse: collapse; font-size:13px }
+  th, td { padding:9px 8px; border-bottom: 1px solid #1f2937; vertical-align: top }
+  th { color:var(--muted); text-align:right; position: sticky; top: 64px; background: rgba(17,24,39,0.96) }
+  tr.ok { background: rgba(34,197,94,0.08) }
+  tr.bad { background: rgba(239,68,68,0.10) }
+  tr.pending { background: rgba(255,255,255,0.02) }
+  .tag { font-size:11px; padding: 2px 8px; border-radius: 999px; border:1px solid #1f2937; background:#0b1220 }
+  .tag.ok { color: var(--ok); border-color: var(--ok) }
+  .tag.bad { color: var(--bad); border-color: var(--bad) }
+  .tag.pending { color:#cbd5e1; border-color:#334155 }
+  .muted { color:var(--muted); font-size:12px }
+  .mono { font-family: ui-monospace, Menlo, Consolas, monospace }
+  .kpi { display:grid; grid-template-columns: repeat(3,1fr); gap:12px }
+  .kpi .box { background:#0b1220; border:1px solid #1f2937; border-radius:14px; padding:12px }
+  .kpi .box h4 { margin:0 0 6px; font-size:12px; color:var(--muted) }
+  .kpi .box div { font-size:20px; font-weight:800 }
+  .flex { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+  .sep { height:1px; background:#1f2937; margin:10px 0 12px }
+  .btn-row { display:flex; gap:8px; flex-wrap: wrap; margin-bottom:8px }
+  canvas { width:100%; height:280px; background:#0b1220; border:1px solid #1f2937; border-radius:12px }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div style="width:28px; height:28px; border-radius:8px; background: linear-gradient(135deg,#0ea5e9,#22d3ee)"></div>
+    <h1>HAFEZ — La Liga v2.0.1 (RB) Dashboard</h1>
+  </div>
+  <div class="controls">
+    <div class="pill"><label>فصل</label><input id="season" value="2025-26"/></div>
+    <div class="pill"><label>هفته</label><select id="week"></select></div>
+    <div class="pill"><label>حالت</label>
+      <select id="mode">
+        <option value="RB_ALL">RB (Balanced)</option>
+        <option value="Conservative">Conservative</option>
+        <option value="Risky">Risky</option>
+      </select>
+    </div>
+    <div class="pill"><label>فیلتر اطمینان</label>
+      <select id="bucket">
+        <option value="all">همه</option>
+        <option value="high">High (≥0.65)</option>
+        <option value="medium">Medium (0.45–0.64)</option>
+        <option value="low">Low (&lt;0.45)</option>
+      </select>
+    </div>
+    <div class="pill"><label>نمایش</label>
+      <select id="view">
+        <option value="summary">Summary</option>
+        <option value="all">All fields</option>
+      </select>
+    </div>
+    <button id="reload" class="primary">بارگذاری</button>
+  </div>
+</header>
+
+<main>
+  <div class="tabs">
+    <div class="tab active" data-tab="overview">مقایسه پیش‌بینی/واقعی</div>
+    <div class="tab" data-tab="compare">Compare Modes</div>
+    <div class="tab" data-tab="shortlist">Shortlist & Upsets</div>
+    <div class="tab" data-tab="metrics">Charts</div>
+  </div>
+
+  <!-- Overview -->
+  <section class="panel active" id="panel-overview">
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>مقایسهٔ پیش‌بینی‌ها با نتایج واقعی</h3>
+        <div class="kpi">
+          <div class="box"><h4>Accuracy (TopPick)</h4><div id="kpi-acc">—</div></div>
+          <div class="box"><h4>RPS (میانگین)</h4><div id="kpi-rps">—</div></div>
+          <div class="box"><h4>تعداد بازی</h4><div id="kpi-n">—</div></div>
+        </div>
+        <div class="btn-row">
+          <button id="btn-export">Export CSV</button>
+        </div>
+        <div class="sep"></div>
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th>بازی</th>
+              <th>TopPick</th>
+              <th>اعتماد</th>
+              <th>نتیجهٔ واقعی</th>
+              <th>درست/غلط</th>
+              <th>جزئیات</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="sep"></div>
+        <div id="bucketStats" class="muted"></div>
+      </div>
+
+      <div class="card">
+        <h3>نکات</h3>
+        <div class="muted">
+          <p>رنگ‌ها: <span class="tag ok">سبز=درست</span> | <span class="tag bad">قرمز=غلط</span> | سفید=در دسترس‌نبودن نتیجه</p>
+          <p>اگر <span class="mono">Actuals_Extended.json</span> را اضافه کنید، xG / HT / Corners واقعی هم نمایش داده می‌شود.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare Modes -->
+  <section class="panel" id="panel-compare">
+    <div class="card">
+      <h3>Compare Modes — RB vs Conservative vs Risky</h3>
+      <div class="sep"></div>
+      <table id="tbl-compare">
+        <thead>
+          <tr>
+            <th>بازی</th>
+            <th>RB TopPick (conf)</th>
+            <th>Cons TopPick (conf)</th>
+            <th>Risky TopPick (conf)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Shortlist -->
+  <section class="panel" id="panel-shortlist">
+    <div class="grid">
+      <div class="card">
+        <h3>Shortlist</h3>
+        <div id="shortlist"></div>
+      </div>
+      <div class="card">
+        <h3>Upset Candidates</h3>
+        <div id="upsets"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Charts -->
+  <section class="panel" id="panel-metrics">
+    <div class="grid">
+      <div class="card">
+        <h3>Confidence Trend (MD1..N)</h3>
+        <canvas id="chart-trend"></canvas>
+      </div>
+      <div class="card">
+        <h3>Bucket Performance (Cumulative)</h3>
+        <canvas id="chart-buckets"></canvas>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const fmtPct = x => (x==null?'—':(100*x).toFixed(1)+'%');
+
+function switchTab(id){
+  $$(".tab").forEach(t => t.classList.remove("active"));
+  $$(".panel").forEach(p => p.classList.remove("active"));
+  document.querySelector(`.tab[data-tab="${id}"]`).classList.add("active");
+  document.querySelector(`#panel-${id}`).classList.add("active");
+}
+
+$$(".tab").forEach(t => t.addEventListener("click", ()=> switchTab(t.dataset.tab)));
+
+function outcomeFromActuals(a){
+  if(!a || !a.final_score) return null;
+  const h=a.final_score.home, g=a.final_score.away;
+  if(h>g) return 'Home Win';
+  if(h<g) return 'Away Win';
+  return 'Draw';
+}
+function rpsRow(pH,pD,pA, outcome){
+  if(!outcome) return null;
+  const y = {'Home Win':[1,0,0], 'Draw':[0,1,0], 'Away Win':[0,0,1]}[outcome];
+  const P = [pH, pH+pD, 1];
+  const CY= [y[0],y[0]+y[1],1];
+  let s=0; for(let i=0;i<3;i++){ s += Math.pow(P[i]-CY[i],2); }
+  return s/2;
+}
+function bucket(c){ if(c>=0.65) return 'High'; if(c>=0.45) return 'Medium'; return 'Low'; }
+
+async function fetchJSON(path){ try{ const r=await fetch(path, {cache:'no-store'}); if(!r.ok) return null; return await r.json(); }catch(e){ return null; } }
+
+function detailCell(pred, ext, view){
+  const p = pred || {}; const lines = [];
+  const goals = p.goals||{};
+  lines.push(`Goals μ=${goals.total_expected ?? '—'} | O2.5=${fmtPct(goals.over_2_5)} | BTTS=${fmtPct(goals.btts)}`);
+  const ht=p.halftime||{}; lines.push(`HT: H=${fmtPct(ht.home_lead)} / D=${fmtPct(ht.draw)} / A=${fmtPct(ht.away_lead)}`);
+  const sh=p.second_half||{}; lines.push(`2H: H=${fmtPct(sh.home_win_2H)} / D=${fmtPct(sh.draw_2H)} / A=${fmtPct(sh.away_win_2H)}`);
+  const fg=p.first_goal||{}; lines.push(`First goal: H=${fmtPct(fg.home)} / A=${fmtPct(fg.away)} / NG=${fmtPct(fg.no_goal)}`);
+  const cor=p.corners||{}; lines.push(`Corners μ=${cor.total_expected ?? '—'} | O9.5=${fmtPct(cor.over_9_5)} / O10.5=${fmtPct(cor.over_10_5)}`);
+  const sc=p.likely_scorers||[]; if(sc.length){ lines.push('Scorers: '+sc.map(s=>`${s.player}(${fmtPct(s.prob)})`).join(' , ')) }
+  const factors=(p.meta&&p.meta.factors)||[]; if(factors.length){ lines.push('Factors: '+factors.join(' • ')) }
+  if(ext){
+    const aug=[];
+    if(ext.halftime_score) aug.push(`HT ${ext.halftime_score.home}-${ext.halftime_score.away}`);
+    if(ext.xG && (ext.xG.home!=null||ext.xG.away!=null)) aug.push(`xG ${ext.xG.home ?? '—'}–${ext.xG.away ?? '—'}`);
+    if(ext.corners_total!=null) aug.push(`Corners ${ext.corners_total}`);
+    if(ext.first_goal) aug.push(`FG ${ext.first_goal.team} ${ext.first_goal.minute}' ${ext.first_goal.player||''}`);
+    if(aug.length) lines.push('Actuals: '+aug.join(' | '));
+  }
+  if(view==='all'){ return `<div class="muted">${lines.map(l=>`<div>${l}</div>`).join('')}</div>`; }
+  return `<div class="muted">${lines.slice(0,3).map(l=>`<div>${l}</div>`).join('')}</div>`;
+}
+
+function exportTableCSV(tid, filename){
+  const rows = Array.from(document.querySelectorAll(`#${tid} tr`)).map(tr => Array.from(tr.children).map(td => (td.innerText||'').replace(/\n/g,' ').trim()));
+  const csv = rows.map(r => r.map(c => `"${c.replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function loadOverview(){
+  const season=$('#season').value.trim(), md=$('#week').value, mode=$('#mode').value, bucketFilter=$('#bucket').value, view=$('#view').value;
+  const base=`data/HAFEZ_LaLiga_${season}_MD${md}`;
+  const file = mode==='RB_ALL' ? `${base}_RB_ALL.json` : `${base}_${mode}.json`;
+  const extFile = `${base}_Actuals_Extended.json`;
+
+  const data = await fetchJSON(file);
+  const ext  = await fetchJSON(extFile);
+  const tbody = $('#tbl tbody'); tbody.innerHTML='';
+
+  if(!data || !data.matches){ tbody.innerHTML = `<tr><td colspan="6">فایل یافت نشد: <span class="mono">${file}</span></td></tr>`; updateKPIs(0,null,null); return; }
+
+  let n=0, ok=0, rpsSum=0, rpsCnt=0;
+  const buckets={High:{n:0,c:0}, Medium:{n:0,c:0}, Low:{n:0,c:0}};
+
+  for(const m of data.matches){
+    const p=m.predictions?.main||{};
+    const conf=p.confidence ?? null; const b = conf!=null ? (conf>=0.65?'High':(conf>=0.45?'Medium':'Low')) : 'Low';
+    if(bucketFilter!=='all' && ((bucketFilter==='high' && b!=='High')||(bucketFilter==='medium' && b!=='Medium')||(bucketFilter==='low' && b!=='Low'))) continue;
+    const act = m.actuals || null;
+    const extMatch = ext ? (ext.matches||[]).find(x => x.home_team===m.home_team && x.away_team===m.away_team && x.date===m.date) : null;
+    const outcome = outcomeFromActuals(act||extMatch);
+    const rps=rpsRow(p.home_win,p.draw,p.away_win,outcome); if(rps!=null){ rpsSum+=rps; rpsCnt++; }
+
+    let status='pending', badge='<span class="tag pending">—</span>';
+    if(outcome){
+      const correct = outcome===(p.top_pick||'—'); status=correct?'ok':'bad'; badge=correct?'<span class="tag ok">درست</span>':'<span class="tag bad">غلط</span>';
+      n++; if(correct) ok++;
+    }
+    if(conf!=null){ buckets[b].n+=1; if(status==='ok') buckets[b].c+=1; }
+
+    const tr=document.createElement('tr'); tr.className=status;
+    tr.innerHTML=`
+      <td><div class="mono">${m.home_team} – ${m.away_team}</div><div class="muted">${m.date}</div></td>
+      <td><div>${p.top_pick||'—'}</div><div class="muted">H=${fmtPct(p.home_win)} / D=${fmtPct(p.draw)} / A=${fmtPct(p.away_win)}</div></td>
+      <td>${fmtPct(conf)}</td>
+      <td>${ outcome ? `<b>${outcome}</b>${act?.final_score? ` <span class="muted">(${act.final_score.home}-${act.final_score.away})</span>`:''}` : '—' }</td>
+      <td>${badge}</td>
+      <td>${detailCell(m.predictions, extMatch, view)}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  const acc = n>0 ? ok/n : null;
+  const rpsAvg = rpsCnt>0 ? rpsSum/rpsCnt : null;
+  updateKPIs(n, acc, rpsAvg);
+  $('#bucketStats').innerHTML = `High: ${buckets.High.c}/${buckets.High.n} | Medium: ${buckets.Medium.c}/${buckets.Medium.n} | Low: ${buckets.Low.c}/${buckets.Low.n}`;
+
+  // export
+  $('#btn-export').onclick = ()=> exportTableCSV('tbl', `HAFEZ_${season}_MD${md}_${mode}.csv`);
+}
+
+async function loadCompare(){
+  const season=$('#season').value.trim(), md=$('#week').value;
+  const base=`data/HAFEZ_LaLiga_${season}_MD${md}`;
+  const rb = await fetchJSON(`${base}_RB_ALL.json`);
+  const cons = await fetchJSON(`${base}_Conservative.json`);
+  const risk = await fetchJSON(`${base}_Risky.json`);
+
+  const tbody = $('#tbl-compare tbody'); tbody.innerHTML='';
+  if(!(rb&&cons&&risk)){ tbody.innerHTML='<tr><td colspan="4">فایل‌های RB/Cons/Risky یافت نشد.</td></tr>'; return; }
+
+  for(let i=0;i<rb.matches.length;i++){
+    const r=rb.matches[i]; const c=cons.matches.find(x=>x.home_team===r.home_team && x.away_team===r.away_team);
+    const k=risk.matches.find(x=>x.home_team===r.home_team && x.away_team===r.away_team);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div class="mono">${r.home_team} – ${r.away_team}</div></td>
+      <td>${r.predictions.main.top_pick} (${fmtPct(r.predictions.main.confidence)})</td>
+      <td>${c? `${c.predictions.main.top_pick} (${fmtPct(c.predictions.main.confidence)})`:'—'}</td>
+      <td>${k? `${k.predictions.main.top_pick} (${fmtPct(k.predictions.main.confidence)})`:'—'}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+async function loadShortlist(){
+  const season=$('#season').value.trim(), md=$('#week').value;
+  const base=`data/HAFEZ_LaLiga_${season}_MD${md}_Shortlist.json`;
+  const data = await fetchJSON(base);
+  const s = $('#shortlist'); const u = $('#upsets');
+  if(!data){ s.innerHTML='یافت نشد'; u.innerHTML='یافت نشد'; return; }
+
+  function renderList(list, color){
+    if(!list || list.length===0) return '<div class="muted">—</div>';
+    return '<ul>'+list.map(x=>`<li><span class="mono">${x.Match}</span> — <b>${x.TopPick}</b> <span class="muted">(${fmtPct(x.Confidence)})</span></li>`).join('')+'</ul>';
+  }
+  const hl = data.shortlist?.high_confidence || [];
+  const ml = data.shortlist?.medium_confidence || [];
+  const ll = data.shortlist?.low_confidence || [];
+  s.innerHTML = `<h4>High</h4>${renderList(hl)}<div class="sep"></div><h4>Medium</h4>${renderList(ml)}<div class="sep"></div><h4>Low</h4>${renderList(ll)}`;
+
+  const up = data.upset_candidates || [];
+  u.innerHTML = renderList(up);
+}
+
+function drawLineChart(canvas, xs, ys){
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.clientWidth;
+  const h = canvas.height = canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#0b1220'; ctx.fillRect(0,0,w,h);
+  const pad=36;
+  const xmin = Math.min(...xs), xmax=Math.max(...xs);
+  const ymin = Math.min(...ys), ymax=Math.max(...ys);
+  const sx = (x)=> pad + (w-2*pad) * (x-xmin)/(xmax-xmin || 1);
+  const sy = (y)=> h-pad - (h-2*pad) * (y-ymin)/(ymax-ymin || 1);
+  // grid
+  ctx.strokeStyle = '#1f2937'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){ const y= pad + i*(h-2*pad)/4; ctx.beginPath(); ctx.moveTo(pad,y); ctx.lineTo(w-pad,y); ctx.stroke(); }
+  // line
+  ctx.strokeStyle = '#22d3ee'; ctx.lineWidth=2.5; ctx.beginPath();
+  xs.forEach((x,i)=>{ const X=sx(x), Y=sy(ys[i]); if(i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+  ctx.stroke();
+  // points
+  ctx.fillStyle = '#38bdf8';
+  xs.forEach((x,i)=>{ const X=sx(x), Y=sy(ys[i]); ctx.beginPath(); ctx.arc(X,Y,4,0,Math.PI*2); ctx.fill(); });
+}
+
+function drawBarChart(canvas, labels, correct, total){
+  const ctx = canvas.getContext('2d');
+  const w=canvas.width=canvas.clientWidth, h=canvas.height=canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='#0b1220'; ctx.fillRect(0,0,w,h);
+  const pad=40, bw= (w-2*pad)/labels.length * 0.6, gap=(w-2*pad)/labels.length * 0.4;
+  const ymax = Math.max(...total,1);
+  for(let i=0;i<labels.length;i++){
+    const x = pad + i*((w-2*pad)/labels.length) + gap/2;
+    const th = (h-2*pad)* (total[i]/ymax);
+    const ch = (h-2*pad)* (correct[i]/ymax);
+    // total
+    ctx.fillStyle='#334155'; ctx.fillRect(x, h-pad-th, bw, th);
+    // correct
+    ctx.fillStyle='#22c55e'; ctx.fillRect(x, h-pad-ch, bw, ch);
+    // label
+    ctx.fillStyle='#9ca3af'; ctx.font='12px sans-serif';
+    ctx.fillText(labels[i], x, h-pad+14);
+  }
+}
+
+async function loadCharts(){
+  const season=$('#season').value.trim();
+  // Confidence Trend: average confidence per MD for RB_ALL
+  const xs=[], ys=[];
+  for(let md=1; md<=38; md++){
+    const f=`data/HAFEZ_LaLiga_${season}_MD${md}_RB_ALL.json`;
+    const d = await fetchJSON(f);
+    if(!d || !d.matches) continue;
+    let s=0,c=0;
+    for(const m of d.matches){ const cf = m.predictions?.main?.confidence; if(cf!=null){ s+=cf; c++; } }
+    if(c>0){ xs.push(md); ys.push(s/c); }
+  }
+  const c1 = document.getElementById('chart-trend');
+  if(xs.length>0){ drawLineChart(c1, xs, ys); }
+
+  // Bucket Performance cumulative across all found weeks
+  let b = {High:{n:0,c:0}, Medium:{n:0,c:0}, Low:{n:0,c:0}};
+  for(let md=1; md<=38; md++){
+    const f=`data/HAFEZ_LaLiga_${season}_MD${md}_RB_ALL.json`;
+    const d = await fetchJSON(f);
+    if(!d || !d.matches) continue;
+    for(const m of d.matches){
+      const p=m.predictions?.main||{}; const conf=p.confidence??null; if(conf==null) continue;
+      const buck = conf>=0.65?'High':(conf>=0.45?'Medium':'Low');
+      b[buck].n++;
+      const outcome = outcomeFromActuals(m.actuals||null);
+      if(outcome && outcome===(p.top_pick||'')) b[buck].c++;
+    }
+  }
+  const labels=['High','Medium','Low'];
+  const total=[b.High.n,b.Medium.n,b.Low.n], correct=[b.High.c,b.Medium.c,b.Low.c];
+  const c2=document.getElementById('chart-buckets');
+  drawBarChart(c2, labels, correct, total);
+}
+
+function updateKPIs(n, acc, rps){
+  $('#kpi-n').textContent = n;
+  $('#kpi-acc').textContent = acc==null ? '—' : (100*acc).toFixed(1)+'%';
+  $('#kpi-rps').textContent = rps==null ? '—' : rps.toFixed(3);
+}
+
+function populateWeeks(){ const w=$('#week'); w.innerHTML=''; for(let i=1;i<=38;i++){ const o=document.createElement('option'); o.value=i; o.textContent='هفته '+i; w.appendChild(o); } w.value=5; }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  populateWeeks();
+  $('#reload').addEventListener('click', ()=>{ loadOverview(); loadCompare(); loadShortlist(); loadCharts(); });
+  // initial
+  loadOverview(); loadCompare(); loadShortlist(); loadCharts();
+});
+</script>
+</body>
+</html>
